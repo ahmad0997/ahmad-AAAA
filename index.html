@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>أحمد & سارة — بداية حكاية</title>
+<meta name="theme-color" content="#f8eef1">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap');
+:root{
+  --ink:#3c3035;--muted:#89747b;--paper:#fffaf8;--rose:#c87591;
+  --rose2:#e7a9ba;--line:rgba(113,74,88,.14);--shadow:0 24px 70px rgba(89,54,66,.14)
+}
+*{box-sizing:border-box} html,body{margin:0;min-height:100%;font-family:Cairo,sans-serif;color:var(--ink);background:#f7ecef}
+body{overflow-x:hidden}
+button,input{font:inherit}
+button{cursor:pointer;border:0}
+#app{min-height:100svh;position:relative;overflow:hidden;background:
+ radial-gradient(circle at 10% 12%,rgba(231,169,186,.28),transparent 27%),
+ radial-gradient(circle at 90% 80%,rgba(221,196,177,.25),transparent 30%),
+ linear-gradient(145deg,#fff8f7,#f5e9ed 52%,#fff9f6)}
+.grain{position:fixed;inset:-50%;opacity:.035;pointer-events:none;z-index:20;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.blob{position:absolute;border-radius:50%;filter:blur(4px);opacity:.48;animation:float 9s ease-in-out infinite}
+.b1{width:230px;height:230px;background:#f0cbd5;top:-70px;right:-70px}.b2{width:190px;height:190px;background:#ead9c7;bottom:-60px;left:-50px;animation-delay:-3s}.b3{width:80px;height:80px;background:#efc3d1;top:44%;left:10%;animation-delay:-6s}
+@keyframes float{50%{transform:translate(14px,18px) scale(1.05)}}
+.progress{position:fixed;top:20px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:30}
+.dot{width:7px;height:7px;border-radius:99px;background:rgba(103,71,82,.18);transition:.5s}.dot.active{width:25px;background:var(--rose)}
+.stage{min-height:100svh;display:grid;place-items:center;padding:60px 20px 38px;position:relative;z-index:2}
+.screen{width:min(620px,100%);display:none;animation:in .72s cubic-bezier(.2,.8,.2,1)}
+.screen.active{display:block}
+@keyframes in{from{opacity:0;transform:translateY(24px) scale(.985)}to{opacity:1;transform:none}}
+.card{background:rgba(255,250,248,.82);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);border-radius:34px;padding:34px 25px}
+.eyebrow{font-size:12px;letter-spacing:.16em;color:var(--rose);font-weight:700}
+h1,h2,p{margin:0} h1{font-family:"Playfair Display",serif;font-size:clamp(44px,13vw,78px);line-height:1.02;font-weight:500}
+h2{font-size:clamp(27px,7vw,42px);line-height:1.25;margin:12px 0 10px}
+p.lead{color:var(--muted);line-height:2;font-size:15px;margin:12px 0 24px}
+.names{display:flex;align-items:center;justify-content:center;gap:17px;margin:18px 0 25px}.names span{font-family:"Playfair Display",serif;font-size:42px}.amp{font-size:24px;color:var(--rose)}
+.btn{background:var(--ink);color:#fff;padding:14px 24px;border-radius:999px;min-width:190px;box-shadow:0 12px 28px rgba(60,48,53,.18);transition:.25s}
+.btn:hover{transform:translateY(-2px)} .btn.alt{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+.choice{background:#fff;border:1px solid var(--line);border-radius:23px;padding:18px 14px;text-align:center;color:var(--ink);transition:.25s}
+.choice:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(92,55,68,.1)}
+.choice .ico{font-size:27px;display:block;margin-bottom:6px}.choice small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.reveal{position:relative;padding:8px 0 18px;text-align:center}
+.reveal .ring{width:108px;height:108px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#fff,#f4dbe2);box-shadow:0 18px 50px rgba(150,84,110,.16);font-size:43px;animation:ring 1.8s ease-in-out infinite}
+@keyframes ring{50%{transform:translateY(-5px) rotate(2deg)}}
+.script{font-family:"Playfair Display",serif;font-style:italic;font-size:18px;color:var(--rose)}
+.detail-list{display:grid;gap:11px;margin:24px 0}.detail{display:flex;align-items:center;gap:13px;padding:15px;background:#fff;border:1px solid var(--line);border-radius:20px}.detail .dico{font-size:24px;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:#f9e9ed}.detail b{display:block;font-size:14px}.detail span{color:var(--muted);font-size:12px}
+.countdown{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0 5px}.time{background:rgba(255,255,255,.75);border:1px solid var(--line);border-radius:18px;padding:12px}.time strong{display:block;font-size:23px}.time span{font-size:10px;color:var(--muted)}
+.form{display:grid;gap:12px;text-align:right;margin-top:20px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 5px 6px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:#fff;border-radius:17px;padding:13px 15px;outline:none;color:var(--ink)}.field input:focus,.field textarea:focus{border-color:var(--rose2);box-shadow:0 0 0 4px rgba(231,169,186,.15)}
+.guests{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:18px;padding:9px 12px}.counter{display:flex;align-items:center;gap:13px}.counter button{width:34px;height:34px;border-radius:50%;background:#f8e8ed;color:var(--ink);font-size:20px}.success{text-align:center}.heart{font-size:58px;animation:pop .8s cubic-bezier(.2,.9,.3,1)}@keyframes pop{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1)}}
+.note{font-size:11px;color:var(--muted);line-height:1.8;margin-top:13px}.footer{font-size:10px;color:rgba(60,48,53,.45);text-align:center;margin-top:22px}
+@media(max-width:450px){.card{padding:29px 18px;border-radius:29px}.choice-grid{gap:9px}.choice{padding:16px 10px}.names span{font-size:35px}}
+
+.letter-card{position:relative;overflow:hidden;text-align:center;padding:38px 26px 30px;background:rgba(255,251,249,.9)}
+.letter-card:before{content:"";position:absolute;top:-42px;left:50%;transform:translateX(-50%);width:155px;height:72px;background:rgba(239,211,219,.7);border-radius:0 0 32px 32px;filter:blur(.2px)}
+.letter-card:after{content:"";position:absolute;inset:14px;border:1px solid rgba(200,117,145,.12);border-radius:27px;pointer-events:none}
+.letter-content{position:relative;z-index:1}
+.letter-icon{font-size:30px;margin:4px 0 10px}
+.letter-title{font-family:"Playfair Display",serif;font-size:30px;margin:0 0 22px;color:var(--ink)}
+.letter-text{font-size:15px;line-height:2.25;color:#6f5b62;margin:0 auto 20px;max-width:520px}
+.letter-text p{margin:0 0 14px}
+.letter-meta{margin:22px auto 24px;padding:14px 18px;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:18px;color:var(--muted);font-size:13px;line-height:1.9;max-width:430px}
+.letter-sign{font-family:"Playfair Display",serif;font-size:21px;color:var(--rose);margin:18px 0 23px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="grain"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="progress" id="progress"></div>
+  <main class="stage">
+    <section class="screen active">
+      <div class="card" style="text-align:center">
+        <div class="eyebrow">A LITTLE ANNOUNCEMENT</div>
+        <div class="names"><span>AHMAD</span><i class="amp">♡</i><span>SARA</span></div>
+        <p class="script">بداية فصل جديد من حكايتنا</p>
+        <p class="lead">في خبر صغير... بس فرحته كبيرة، وحابين تكونوا أول ناس نشاركها معنا.</p>
+        <button class="btn" onclick="go(1)">افتحوا دعوتنا ✨</button>
+        <div class="footer">scroll less · feel more</div>
+      </div>
+    </section>
+
+    <section class="screen">
+      <div class="card" style="text-align:center">
+        <div class="eyebrow">BEFORE WE TELL YOU</div>
+        <h2>تتوقعوا شو الخبر؟</h2>
+        <p class="lead">اختاروا أي جواب... بالنهاية رح توصلكم نفس المفاجأة 🤍</p>
+        <div class="choice-grid">
+          <button class="choice" onclick="wrongChoice('سفر ✈️')"><span class="ico">✈️</span>سفر<small>خبر كبير؟</small></button>
+          <button class="choice" onclick="go(2)"><span class="ico">🎉</span>احتفال<small>في شي عم يتحضّر</small></button>
+          <button class="choice" onclick="wrongChoice('بداية جديدة 🏡')"><span class="ico">🏡</span>بداية جديدة<small>قريباً...</small></button>
+          <button class="choice" onclick="wrongChoice('شي حلو ❤️')"><span class="ico">❤️</span>أكيد شي حلو<small>إحساسكم بمحله</small></button>
+        </div>
+        <div id="wrongMessage" style="display:none;margin-top:17px;padding:17px 18px;border-radius:21px;background:#fff;border:1px solid var(--line);animation:in .45s ease">
+          <div id="wrongText" style="font-size:14px;line-height:2;color:var(--ink)"></div>
+          <button class="btn alt" style="margin-top:12px;min-width:150px" onclick="resetGuess()">جربوا مرة تانية 🤍</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen">
+      <div class="card reveal" style="text-align:center">
+        <div class="ring">💍</div>
+        <div class="eyebrow">THE NEWS</div>
+        <h2>إي... الخبر هو إننا <span style="color:var(--rose)">مخطوبين!</span></h2>
+        <p class="lead">أحمد وسارة قرروا يبدؤوا أجمل فصل جديد، وحابين نعيش أول لحظاته معكم.</p>
+        <button class="btn" onclick="go(3)">طيب... إمتى ومن وين؟ 🤍</button>
+      </div>
+    </section>
+
+    <section class="screen">
+      <div class="card">
+        <div class="eyebrow">SAVE THE DATE</div>
+        <h2>موعد فرحتنا</h2>
+        <p class="lead">حطّوا الموعد بقلبكم قبل الروزنامة ❤️</p>
+        <div class="detail-list">
+          <div class="detail"><div class="dico">📅</div><div><b>السبت · 19 ديسمبر 2026</b><span>موعد الخطوبة</span></div></div>
+          <div class="detail"><div class="dico">🕗</div><div><b>08:00 مساءً</b><span>نبدأ الاحتفال</span></div></div>
+          <div class="detail"><div class="dico">📍</div><div><b>قاعة الأحلام</b><span>دمشق — سوريا</span></div></div>
+        </div>
+        <div class="countdown">
+          <div class="time"><strong id="dd">--</strong><span>يوم</span></div>
+          <div class="time"><strong id="hh">--</strong><span>ساعة</span></div>
+          <div class="time"><strong id="mm">--</strong><span>دقيقة</span></div>
+        </div>
+        <div class="actions" style="margin-top:19px">
+          <button class="btn alt" onclick="go(4)">شوفوا مين رح يجي 🤍</button>
+          <button class="btn alt" onclick="window.open('https://maps.google.com/?q=Damascus','_blank')">الموقع على الخريطة ↗</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen">
+      <div class="card">
+        <div class="eyebrow">BE WITH US</div>
+        <h2>رح تكونوا معنا؟</h2>
+        <p class="lead">وجودكم هو الجزء اللي بيكمّل فرحتنا.</p>
+        <div class="actions">
+          <button class="btn" onclick="showForm()">أكيد، جايين 🥹❤️</button>
+          <button class="btn alt" onclick="decline()">للأسف ما رح نقدر 😔</button>
+        </div>
+        <p class="note">ما في ضغط أبداً — بس خبرونا حتى نعرف نرتّب كل التفاصيل بمحبة.</p>
+      </div>
+    </section>
+
+    <section class="screen">
+      <div class="card">
+        <div class="eyebrow">RSVP</div>
+        <h2>مين رح يشاركنا؟</h2>
+        <div class="form">
+          <div class="field"><label>الاسم الكامل</label><input id="name" placeholder="مثلاً: محمد أحمد"></div>
+          <div class="field"><label>اسم العائلة</label><input id="family" placeholder="مثلاً: عائلة أحمد"></div>
+          <div class="guests"><div><b>عدد الحاضرين</b><div class="note">شاملاً الشخص المسجّل</div></div><div class="counter"><button onclick="change(-1)">−</button><strong id="count">1</strong><button onclick="change(1)">+</button></div></div>
+          <div class="field"><label>ملاحظة (اختياري)</label><textarea id="note" rows="2" placeholder="أي ملاحظة نحتاج نعرفها..."></textarea></div>
+          <button class="btn" onclick="submitRSVP()">تأكيد الحضور ✨</button>
+          <div id="rsvpStatus" class="note" style="display:none;margin-top:12px;line-height:1.8">عم نسجل حضوركم... 🤍<br><span>وجودكم معنا هو أجمل هدية، وبتكملوا فرحتنا بهاللحظة ✨</span></div>
+          <div class="note">تسجيلكم يوصلنا مباشرة، وبيساعدنا نرتّب كل التفاصيل بمحبة 🤍</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen">
+      <div class="card success letter-card">
+        <div class="letter-content">
+          <div class="letter-icon">💌</div>
+          <div class="eyebrow">A LITTLE MESSAGE</div>
+          <h2 class="letter-title">رسالة صغيرة لكم</h2>
+          <div class="letter-text">
+            <p>من بين كل الأيام، اخترنا هاليوم ليكون بداية فصل جديد من حكايتنا… 🤍</p>
+            <p>وجودكم معنا مو مجرد حضور، هو ذكرى رح تضل معنا ونحملها بقلوبنا بكل محبة.</p>
+            <p>شكراً لأنكم اخترتوا تكونوا جزء من فرحتنا، وتشاركونا لحظة رح نتذكرها العمر كله. 🌷</p>
+          </div>
+          <div class="letter-meta">
+            <b>السبت · 19 ديسمبر 2026</b><br>
+            💍 قاعة الأحلام — دمشق
+          </div>
+          <div class="letter-sign">بحب كبير… أحمد & سارة ❤️</div>
+          <button class="btn alt" onclick="go(0)">نعيشها من جديد ✨</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+const screens=[...document.querySelectorAll('.screen')], progress=document.getElementById('progress');
+for(let i=0;i<screens.length;i++){const d=document.createElement('i');d.className='dot'+(i===0?' active':'');progress.appendChild(d)}
+let step=0, guests=1;
+function go(n){step=n;screens.forEach((s,i)=>s.classList.toggle('active',i===step));[...progress.children].forEach((d,i)=>d.classList.toggle('active',i===step));window.scrollTo({top:0,behavior:'smooth'})}
+function wrongChoice(choice){
+  const box=document.getElementById('wrongMessage');
+  const text=document.getElementById('wrongText');
+  const messages={
+    'سفر ✈️':'لااا 🥹 اختيارك مو صحيح... في شي أحلى من السفر بكتير! ❤️',
+    'بداية جديدة 🏡':'قريب... بس مو هيك 🥹 في بداية أجمل وأحلى ناطرينها!',
+    'شي حلو ❤️':'إحساسك بمحله ❤️ بس لسا ما وصلنا للخبر الحقيقي...'
+  };
+  text.textContent=messages[choice] || 'لا 🥹 اختيارك مو صحيح... في شي أحلى من هيك بكتير! ❤️';
+  box.style.display='block';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetGuess(){
+  document.getElementById('wrongMessage').style.display='none';
+}
+function change(n){guests=Math.max(1,Math.min(12,guests+n));document.getElementById('count').textContent=guests}
+function showForm(){go(5)}
+function decline(){go(6); document.querySelector('#app .screen:last-child h2').textContent='شكراً لأنكم خبرتونا 🤍';document.querySelector('#app .screen:last-child .lead').textContent='حتى لو ما قدرتوا تكونوا معنا، محبتكم وتهنئتكم بتوصلنا أكيد.'}
+// بعد نشر Google Apps Script، ضع رابط Web App هنا:
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxvpcf17cqAitcAWbydIb8IYEWdAy-1cUcGaW3YfbrduAV3sBFD8XOz0q6nLD18WaEEVQ/exec";
+
+async function submitRSVP(){
+  const name=document.getElementById('name').value.trim(), family=document.getElementById('family').value.trim();
+  if(!name){alert('اكتبوا الاسم لو سمحتوا 🤍');return}
+
+  const data={
+    action:"rsvp",
+    name,
+    family,
+    guests,
+    note:document.getElementById('note').value.trim(),
+    page:"engagement",
+    submittedAt:new Date().toISOString()
+  };
+
+  if(GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")){
+    alert("الموقع جاهز للربط، بس لازم نحط رابط Google Sheets أولاً 🤍");
+    return;
+  }
+
+  const button=document.querySelector('.screen:nth-of-type(6) .btn');
+  const status=document.getElementById('rsvpStatus');
+  if(button){button.disabled=true;button.textContent="عم نسجل حضوركم... 🤍"}
+  if(status){status.style.display='block'}
+
+  try{
+    // text/plain avoids a CORS preflight with Google Apps Script.
+    await fetch(GOOGLE_SCRIPT_URL,{
+      method:"POST",
+      mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify(data)
+    });
+    go(6);
+  }catch(err){
+    console.error(err);
+    if(button){button.disabled=false;button.textContent="تأكيد الحضور ✨"}
+    if(status){status.style.display='none'}
+    alert("صار خطأ أثناء التسجيل. جرّبوا مرة تانية 🤍");
+  }
+}
+const target=new Date('2026-12-19T20:00:00+03:00');
+function tick(){let x=Math.max(0,target-new Date()),d=Math.floor(x/864e5);x%=864e5;let h=Math.floor(x/36e5);x%=36e5;let m=Math.floor(x/6e4);document.getElementById('dd').textContent=d;document.getElementById('hh').textContent=String(h).padStart(2,'0');document.getElementById('mm').textContent=String(m).padStart(2,'0')}
+tick();setInterval(tick,30000);
+</script>
+</body>
+</html>
